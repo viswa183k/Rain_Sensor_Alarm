@@ -1,0 +1,30 @@
+// Rain Sensor Alarm using Arduino
+
+const int rainSensorPin = A0;  // Analog pin connected to rain sensor
+const int buzzerPin = 8;
+const int ledPin = 13;
+
+void setup() {
+  pinMode(buzzerPin, OUTPUT);
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+  Serial.println("Rain Sensor System Initialized");
+}
+
+void loop() {
+  int rainValue = analogRead(rainSensorPin);
+  Serial.print("Rain Sensor Value: ");
+  Serial.println(rainValue);
+
+  if (rainValue < 500) { // Lower value = more water
+    digitalWrite(buzzerPin, HIGH);
+    digitalWrite(ledPin, HIGH);
+    Serial.println("🌧️ Rain Detected! Alert ON");
+  } else {
+    digitalWrite(buzzerPin, LOW);
+    digitalWrite(ledPin, LOW);
+    Serial.println("No Rain Detected.");
+  }
+
+  delay(1000);
+}
